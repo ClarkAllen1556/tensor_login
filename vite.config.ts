@@ -13,6 +13,8 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, './src/assets/styles'),
       '@public': path.resolve(__dirname, './src/public'),
       '@imgs': path.resolve(__dirname, './src/assets/imgs'),
+      '@common': path.resolve(__dirname, './src/common'),
+      '@components': path.resolve(__dirname, './src/common/components'),
     },
   },
 });

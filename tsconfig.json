@@ -19,10 +19,12 @@
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"],
-      "@assets*": ["./src/assets*"],
-      "@styles*": ["./src/assets/styles/*"],
-      "@public*": ["./src/public*"],
-      "@imgs*": ["./src/assets/imgs/*"]
+      "@assets*": ["assets/*"],
+      "@styles*": ["assets/styles/*"],
+      "@public*": ["public/*"],
+      "@imgs*": ["assets/imgs/*"],
+      "@common*": ["common/*"],
+      "@components*": ["common/components/*"]
     },
     "types": ["node"]
   },
