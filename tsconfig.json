@@ -21,7 +21,7 @@
       "@/*": ["./*"],
       "@assets*": ["./src/assets*"],
       "@styles*": ["./src/assets/styles/*"],
-      "@public*": ["./public*"],
+      "@public*": ["./src/public*"],
       "@imgs*": ["./src/assets/imgs/*"]
     },
     "types": ["node"]
