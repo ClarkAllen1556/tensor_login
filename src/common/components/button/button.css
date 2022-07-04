@@ -1,0 +1,11 @@
+.primary-button {
+  @apply p-2 rounded shadow-md bg-sol-blue-1 text-white-1 active:bg-sol-yellow-1 disabled:bg-sol-tan-2;
+}
+
+.txt-button {
+  @apply text-sol-blue-1 disabled:text-sol-grey-1;
+}
+
+.secondary-button {
+  @apply p-2 rounded shadow-md bg-sol-grey-4 text-white-1 active:bg-sol-yellow-1 disabled:bg-sol-grey-1;
+}
