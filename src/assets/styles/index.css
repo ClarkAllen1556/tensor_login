@@ -13,7 +13,3 @@ body {
 
   @apply dark:bg-sol-black-2 dark:text-sol-grey-1 bg-sol-tan-1 text-sol-black-2;
 }
-
-code {
-  font-family: 'Ubuntu mono', monospace;
-}

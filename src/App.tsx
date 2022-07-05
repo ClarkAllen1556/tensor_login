@@ -7,14 +7,36 @@ import Button from '@components/button/Button';
 
 function App() {
   const [message, setMessage] = useState<string>('');
+
   function handleChange(value: string) {
     setMessage(value);
   }
 
   return (
     <div className="App">
-      <Input type="text" change={(e) => handleChange(e.target.value)} />
-      <Button click={() => alert(message)}>Show message!</Button>
+      <form>
+        <div>
+          <label>Email address</label>
+          <Input
+            type="email"
+            required={true}
+            change={(e) => handleChange(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Password</label>
+          <Input
+            type="password"
+            required={true}
+            change={(e) => handleChange(e.target.value)}
+          />
+        </div>
+
+        <Button variant="secondary" click={() => console.log('hello')}>
+          Login
+        </Button>
+      </form>
     </div>
   );
 }
