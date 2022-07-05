@@ -43,7 +43,7 @@ export default function SignUp({ submit }: IProps) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <h1 className="mb-4"> Sign up </h1>
+      <h1 className="mb-4 text-center"> Sign up </h1>
 
       <div className="mb-2">
         <label className="block" htmlFor="input-user-email">

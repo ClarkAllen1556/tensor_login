@@ -21,7 +21,7 @@ function App() {
     }
   }
 
-  return <div className="App">{showForm()}</div>;
+  return <div className="App flex justify-center">{showForm()}</div>;
 }
 
 export default App;
