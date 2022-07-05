@@ -6,7 +6,7 @@ type Variant = 'primary' | 'secondary' | 'text';
 interface Props {
   variant?: Variant;
   isDisabled?: boolean;
-  click: React.MouseEventHandler<HTMLButtonElement>;
+  click?: React.MouseEventHandler<HTMLButtonElement>;
   children?: ReactNode;
 }
 
