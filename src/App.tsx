@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Login from '~/features/login/Login';
-import SignUp from '~/features/sign_up/SignUp';
+import Login from '~/pages/login/Login';
+import SignUp from '~/pages/sign_up/SignUp';
 
 type TForm = 'login' | 'sign_up'; // TODO remove this
 
