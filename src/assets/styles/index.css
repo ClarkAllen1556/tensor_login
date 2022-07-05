@@ -11,5 +11,19 @@ body {
   min-height: 100vh;
   padding: 1rem;
 
-  @apply dark:bg-sol-black-2 dark:text-sol-grey-1 bg-sol-tan-1 text-sol-black-2;
+  @apply bg-sol-tan-1
+  text-sol-black-2
+  dark:bg-sol-black-2
+  dark:text-sol-grey-1;
+}
+
+input {
+  @apply p-2
+  border-2
+  rounded-md
+  border-sol-grey-2
+  dark:focus:border-sol-blue-1
+  dark:bg-sol-black-2
+  focus:border-sol-yellow-1
+  focus:outline-none;
 }
