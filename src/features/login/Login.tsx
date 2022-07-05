@@ -2,17 +2,17 @@ import { FormEvent, useRef, useState } from 'react';
 
 import Button from '@components/button/Button';
 
-interface UserCredentials {
+interface IUserCredentials {
   email?: string | null;
   password?: string | null;
 }
 
-interface Props {
+interface IProps {
   submit: Function;
 }
 
-export default function Login({ submit }: Props) {
-  const [credentials, setCredentials] = useState<UserCredentials>({
+export default function Login({ submit }: IProps) {
+  const [credentials, setCredentials] = useState<IUserCredentials>({
     email: null,
     password: null,
   });
