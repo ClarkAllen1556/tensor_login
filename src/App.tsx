@@ -1,9 +1,9 @@
-import '@styles/App.css';
 import { useState } from 'react';
-import Login from '~/features/login/Login';
-import SignUp from '~/features/signup/SignUp';
 
-type TForm = 'login' | 'sign_up';
+import Login from '~/features/login/Login';
+import SignUp from '~/features/sign_up/SignUp';
+
+type TForm = 'login' | 'sign_up'; // TODO remove this
 
 function App() {
   const [form, setForm] = useState<TForm>('sign_up');
