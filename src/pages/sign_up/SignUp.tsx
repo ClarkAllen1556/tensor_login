@@ -32,7 +32,9 @@ export default function SignUp({ submit }: IProps) {
 
     if (userPassword.current?.value === confirmPassword.current?.value) {
       submit({
-        forward: passwordIsValid(userPassword.current?.value),
+        email: passwordIsValid(userPassword.current?.value)
+          ? userEmail.current?.value
+          : null,
       });
     } else {
       submit({
