@@ -1,21 +1,14 @@
-import { useState } from 'react';
-
-import Login from '~/pages/login/Login';
-import SignUp from '~/pages/sign_up/SignUp';
-import { useAppDispatch, useAppSelector } from '@common/hooks/hooks';
-import { setCurrentUser } from '~/features/user/user';
+import { useAppDispatch, useAppSelector } from '~/common/hooks/hooks';
 import { IUser } from '~/common/interfaces/User.interface';
-import Button from './common/components/button/Button';
-
-type TForm = 'login' | 'sign_up'; // TODO remove this
+import Button from '~/common/components/button/Button';
+import { setCurrentUser } from '~/features/user/user';
+import SignUp from '~/pages/sign_up/SignUp';
 
 function App() {
-  const [form, setForm] = useState<TForm>('sign_up');
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   function submit(user: IUser) {
-    // console.log('user >>', user);
     dispatch(setCurrentUser(user));
   }
 
@@ -26,15 +19,6 @@ function App() {
         loggedIn: false,
       })
     );
-  }
-
-  function showForm() {
-    switch (form) {
-      case 'login':
-        return <Login submit={submit} />;
-      case 'sign_up':
-        return <SignUp submit={submit} />;
-    }
   }
 
   function welcomeForm() {
@@ -50,7 +34,7 @@ function App() {
 
   return (
     <div className="App flex justify-center">
-      {user.currentUser.loggedIn ? welcomeForm() : showForm()}
+      {user.currentUser.loggedIn ? welcomeForm() : <SignUp submit={submit} />}
     </div>
   );
 }
