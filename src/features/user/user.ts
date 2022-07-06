@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "~/common/interfaces/User.interface";
 
 interface IUserState {
-  currentUser: IUser | null
+  currentUser: IUser
 }
 
 const initialState: IUserState = {
-  currentUser: null
+  currentUser: { email: undefined, loggedIn: false }
 }
 
 export const userSlice = createSlice({

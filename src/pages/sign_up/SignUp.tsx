@@ -1,25 +1,11 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import PasswordValidator from 'password-validator';
 
+import { IUser } from '~/common/interfaces/User.interface';
 import Button from '~/common/components/button/Button';
 
 interface IProps {
-  submit: Function;
-}
-
-function passwordIsValid(password?: string) {
-  if (!password) return false;
-
-  const schema = new PasswordValidator();
-  schema
-    .is()
-    .min(8, 'Password must be longer than 8 characters.')
-    .has()
-    .digits(2, 'Password must contain at least 2 numbers.')
-    .has()
-    .symbols(1, 'Password must have at least 1 special character.');
-
-  return schema.validate(password, { details: true });
+  submit: (user: IUser) => void;
 }
 
 export default function SignUp({ submit }: IProps) {
@@ -27,18 +13,43 @@ export default function SignUp({ submit }: IProps) {
   const userPassword = useRef<HTMLInputElement>(null);
   const confirmPassword = useRef<HTMLInputElement>(null);
 
+  const [validationMessages, setValidationMessages] = useState<any>([]);
+
+  function passwordIsValid(password?: string) {
+    if (!password) return false;
+
+    const schema = new PasswordValidator();
+    schema
+      .is()
+      .min(4, 'Password must be longer than 8 characters.')
+      .has()
+      .digits(1, 'Password must contain at least 2 numbers.')
+      .has()
+      .symbols(1, 'Password must have at least 1 special character.');
+
+    setValidationMessages(schema.validate(password, { details: true }));
+
+    return schema.validate(password);
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (userPassword.current?.value === confirmPassword.current?.value) {
+    // console.log('userPassword >>', userPassword.current?.value);
+    // console.log('confirmPassword >> ', confirmPassword.current?.value);
+
+    if (
+      userPassword.current?.value === confirmPassword.current?.value &&
+      passwordIsValid(userPassword.current?.value)
+    ) {
       submit({
-        email: passwordIsValid(userPassword.current?.value)
-          ? userEmail.current?.value
-          : null,
+        email: userEmail.current?.value,
+        loggedIn: true,
       });
     } else {
       submit({
-        forward: false,
+        email: undefined,
+        loggedIn: false,
       });
     }
   }
