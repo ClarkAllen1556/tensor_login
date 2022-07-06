@@ -8,6 +8,12 @@ interface IProps {
   submit: (user: IUser) => void;
 }
 
+interface IField {
+  value: string;
+  messages: any[];
+  valid: boolean;
+}
+
 const schema = new PasswordValidator();
 schema
   .is()
@@ -22,30 +28,52 @@ export default function SignUp({ submit }: IProps) {
   const userPasswordInput = useRef<HTMLInputElement>(null);
   const confirmPasswordInput = useRef<HTMLInputElement>(null);
 
-  const [userPassword, setUserPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [userPassword, setUserPassword] = useState<IField>({ value: '', messages: [], valid: false });
+  const [confirmPassword, setConfirmPassword] = useState<IField>({ value: '', messages: [], valid: false });
 
-  const [validationMessages, setValidationMessages] = useState<any[]>([]);
-
-  // update password warning styling
   useEffect(() => {
-    if (userPassword && !passwordIsValid(userPassword)) {
-      const message = validationMessages.reduce((p: string, c: any): string => `${p}${c.message}\n`, '');
+    if (userPassword.value && !userPassword.valid) {
+      const message = userPassword.messages.reduce((c, p) => `${c}${p}\n`, '');
       updateInputStylingsWarning(userPasswordInput.current, 'add', message);
     } else {
       updateInputStylingsWarning(userPasswordInput.current, 'remove');
     }
-  }, [userPassword]);
+  }, [userPassword.messages]);
 
-  // update confirm password warning styling
   useEffect(() => {
-    if (confirmPassword && confirmPassword !== userPassword) {
-      const message = 'Must match password field.';
+    if (confirmPassword.value && !confirmPassword.valid) {
+      const message = confirmPassword.messages.reduce((c, p) => `${c}${p}\n`, '');
       updateInputStylingsWarning(confirmPasswordInput.current, 'add', message);
     } else {
-      confirmPasswordInput.current?.classList.remove('border-sol-magenta-1');
+      updateInputStylingsWarning(confirmPasswordInput.current, 'remove');
     }
-  }, [confirmPassword, userPassword]);
+  }, [confirmPassword.messages]);
+
+  function validatePassword(password?: string) {
+    if (!password) return;
+
+    const validation = schema.validate(password, { details: true });
+    if (validation instanceof Array) {
+      setUserPassword({
+        value: password,
+        valid: !(validation.length > 0),
+        messages: validation.map((m) => m.message),
+      });
+    }
+  }
+
+  function validateConfirm(confirmPassword?: string) {
+    if (!confirmPassword) return;
+
+    const isValid = confirmPassword === userPassword.value;
+    const messages = isValid ? [] : ['Must match password.'];
+
+    setConfirmPassword({
+      value: confirmPassword,
+      valid: isValid,
+      messages: messages,
+    });
+  }
 
   function updateInputStylingsWarning(input: HTMLInputElement | null, action: 'add' | 'remove', message: string = '') {
     if (!input) return;
@@ -62,23 +90,10 @@ export default function SignUp({ submit }: IProps) {
     input.title = message;
   }
 
-  function passwordIsValid(password?: string) {
-    if (!password) return false;
-
-    const validation = schema.validate(password, { details: true });
-    if (validation instanceof Array) {
-      setValidationMessages(validation);
-
-      return !(validation.length > 0);
-    }
-
-    return schema.validate(password);
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (userPassword === confirmPassword && passwordIsValid(userPassword)) {
+    if (userPassword.value === confirmPassword.value && userPassword.valid) {
       submit({
         email: userEmail.current?.value,
         loggedIn: true,
@@ -112,7 +127,7 @@ export default function SignUp({ submit }: IProps) {
           id="input-user-pw"
           type="password"
           ref={userPasswordInput}
-          onChange={(e) => setUserPassword(e.target.value)}
+          onChange={(e) => validatePassword(e.target.value)}
           required
         />
       </div>
@@ -127,7 +142,7 @@ export default function SignUp({ submit }: IProps) {
           id="input-user-pw"
           type="password"
           ref={confirmPasswordInput}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => validateConfirm(e.target.value)}
           required
         />
       </div>
