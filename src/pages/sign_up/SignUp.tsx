@@ -28,6 +28,7 @@ export default function SignUp({ submit }: IProps) {
   const userPasswordInput = useRef<HTMLInputElement>(null);
   const confirmPasswordInput = useRef<HTMLInputElement>(null);
 
+  const [error, setError] = useState<string | null>(null);
   const [userPassword, setUserPassword] = useState<IField>({ value: '', messages: [], valid: false });
   const [confirmPassword, setConfirmPassword] = useState<IField>({ value: '', messages: [], valid: false });
 
@@ -94,11 +95,15 @@ export default function SignUp({ submit }: IProps) {
     event.preventDefault();
 
     if (userPassword.value === confirmPassword.value && userPassword.valid) {
+      setError(null);
+
       submit({
         email: userEmail.current?.value,
         loggedIn: true,
       });
     } else {
+      setError('Please correct the invalid fields.');
+
       submit({
         email: undefined,
         loggedIn: false,
@@ -147,8 +152,9 @@ export default function SignUp({ submit }: IProps) {
         />
       </div>
 
-      <div>
+      <div className="flex flex-col justify-center">
         <Button variant="primary">Sign up</Button>
+        <strong className="mt-2 text-sol-magenta-1 italic text-center">{error && error}</strong>
       </div>
     </form>
   );
