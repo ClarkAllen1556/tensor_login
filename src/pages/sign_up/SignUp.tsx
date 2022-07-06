@@ -17,7 +17,7 @@ interface IField {
 const schema = new PasswordValidator();
 schema
   .is()
-  .min(4, 'Password must be longer than 4 characters.')
+  .min(4, 'Password must be at least 4 characters long.')
   .has()
   .digits(1, 'Password must contain at least 1 numbers.')
   .has()
