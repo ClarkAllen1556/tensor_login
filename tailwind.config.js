@@ -16,6 +16,7 @@ module.exports = {
       'sol-black-2': '#002b36',
       'white-1': '#ffffff',
       'card-title-red': '#c9211e',
+      'sol-magenta-1': '#d33682',
     },
     extend: {
       animation: {
