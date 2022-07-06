@@ -138,13 +138,12 @@ export default function SignUp({ submit }: IProps) {
       </div>
 
       <div className="mb-2">
-        {/* {messages} */}
-        <label className="block" htmlFor="input-user-pw">
+        <label className="block" htmlFor="input-user-confirm">
           Confirm password
         </label>
 
         <input
-          id="input-user-pw"
+          id="input-user-confirm"
           type="password"
           ref={confirmPasswordInput}
           onChange={(e) => validateConfirm(e.target.value)}
